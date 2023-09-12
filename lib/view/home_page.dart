@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:riverspods/constants/app_colors.dart';
 import 'package:riverspods/constants/app_sizes.dart';
+import 'package:riverspods/dummy/book_data.dart';
 
 
 
@@ -31,8 +32,8 @@ class HomePage extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
+
             children: [
               Container(
                   height: 270,
@@ -49,9 +50,112 @@ class HomePage extends StatelessWidget {
                   )),
                AppSizes.gapH10,
 
-              ListView.builder(itemBuilder: itemBuilder),
+              // Container(
+              //   height: 200,
+              //   width: 200,
+              //   decoration: BoxDecoration(
+              //     color: Colors.red,
+              //    borderRadius: BorderRadius.circular(20),
+              //    // borderRadius: BorderRadius.only(topLeft: Radius.circular(20), bottomRight: Radius.circular(50))
+              //   ),
+              // ),
+              // AppSizes.gapH10,
+
+              Container(
+                height: 210,
+                child: ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  itemCount: books.length,
+                    itemBuilder: (context, index){
+                    final book = books[index];
+                    // print(books.length);
+                    // print(books[index].rating);
+                    return Container(
+                      margin: EdgeInsets.only(right: 10),
+                      width: 350,
+                      child: Row(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.network(
+                                book.imageUrl,
+                                width: 150,
+                               height: 210,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                 Text(book.title),
+                                  Text(book.detail, maxLines: 4,),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(book.rating),
+                                      Text(book.genre, style: TextStyle(color: Colors.blueGrey),)
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                    }
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: Text('You may also like', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17),),
+              ),
 
 
+              Container(
+                height: 200,
+                child: ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: books.length,
+                    itemBuilder: (context, index){
+                      final book = books[index];
+                      return Container(
+                        margin: EdgeInsets.only(right: 10),
+                        width: 150,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.network(
+                                book.imageUrl,
+                                width: 120,
+                                height: 120,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(book.title),
+                                Text(book.genre, style: TextStyle(color: Colors.blueGrey),),
+                              ],
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                ),
+              ),
+
+Text(';alskjdlkasjdkljdlksajdkl')
             ],
           ),
         )
