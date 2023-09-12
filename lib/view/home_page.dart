@@ -49,8 +49,7 @@ class HomePage extends StatelessWidget {
                   )),
                AppSizes.gapH10,
 
-
-
+              ListView.builder(itemBuilder: itemBuilder),
 
 
             ],
