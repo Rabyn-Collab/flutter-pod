@@ -2,9 +2,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:riverspods/constants/app_colors.dart';
 import 'package:riverspods/constants/app_sizes.dart';
 import 'package:riverspods/dummy/book_data.dart';
+import 'package:riverspods/view/detail_page.dart';
 
 
 
@@ -69,61 +71,66 @@ class HomePage extends StatelessWidget {
                         itemCount: 3,
                         itemBuilder: (context, index){
                           final book = books[index];
-                          return  Container(
-                            height: 210,
-                            width: 300,
-                            child: Stack(
-                              children: [
-                                Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: Card(
-                                    elevation: 10,
-                                    child: Container(
-                                        alignment: Alignment.topRight,
-                                        height: 170,
-                                        width: 300,
-                                        child: Row(
-                                          children: [
-                                            Container(
-                                              width: 115,
-                                            ),
-                                            AppSizes.gapW4,
-                                            Expanded(
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(bottom: 20, top: 7, right: 5),
-                                                child: Column(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(book.title),
-                                                    Text(book.detail, maxLines: 3,),
-                                                    Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        Text(book.rating),
-                                                        Text(book.genre)
-                                                      ],
-                                                    )
-                                                  ],
+                          return  InkWell(
+                            onTap: (){
+                              Get.to(() => DetailPage(book: book), transition:  Transition.leftToRight);
+                            },
+                            child: Container(
+                              height: 210,
+                              width: 300,
+                              child: Stack(
+                                children: [
+                                  Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Card(
+                                      elevation: 10,
+                                      child: Container(
+                                          alignment: Alignment.topRight,
+                                          height: 170,
+                                          width: 300,
+                                          child: Row(
+                                            children: [
+                                              Container(
+                                                width: 115,
+                                              ),
+                                              AppSizes.gapW4,
+                                              Expanded(
+                                                child: Padding(
+                                                  padding: const EdgeInsets.only(bottom: 20, top: 7, right: 5),
+                                                  child: Column(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(book.title),
+                                                      Text(book.detail, maxLines: 3,),
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          Text(book.rating),
+                                                          Text(book.genre)
+                                                        ],
+                                                      )
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          ],
-                                        )),
+                                            ],
+                                          )),
+                                    ),
                                   ),
-                                ),
-                                Positioned(
-                                  left: 15,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Image.network(
-                                      height:190,
-                                      width: 100,
-                                      book.imageUrl, fit: BoxFit.cover,),
-                                  ),
-                                )
+                                  Positioned(
+                                    left: 15,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Image.network(
+                                        height:190,
+                                        width: 100,
+                                        book.imageUrl, fit: BoxFit.cover,),
+                                    ),
+                                  )
 
-                              ],
+                                ],
+                              ),
                             ),
                           );
 
