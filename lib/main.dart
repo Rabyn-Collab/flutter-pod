@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:riverspods/view/home_page.dart';
 import 'package:riverspods/view/sample_page.dart';
+import 'package:riverspods/view/sample_page_1.dart';
 
 
 
@@ -39,7 +40,7 @@ class Home extends StatelessWidget {
         ),
         home: MediaQuery(
             data: MediaQuery.of(context).copyWith(textScaleFactor: width > 550 ? 0.9: 1.0),
-            child: SamplePage()),
+            child: SamplePage1()),
       ),
     );
   }
