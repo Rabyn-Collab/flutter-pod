@@ -68,7 +68,7 @@ class HomePage extends StatelessWidget {
                         },
                         physics: BouncingScrollPhysics(),
                         scrollDirection: Axis.horizontal,
-                        itemCount: 3,
+                        itemCount: books.length,
                         itemBuilder: (context, index){
                           final book = books[index];
                           return  InkWell(

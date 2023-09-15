@@ -1,7 +1,9 @@
 import 'package:epub_view/epub_view.dart' as pub;
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:riverspods/constants/app_sizes.dart';
 import 'package:riverspods/models/book.dart';
+import 'package:riverspods/view/book_view.dart';
 
 
 
@@ -44,7 +46,7 @@ class DetailPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ElevatedButton(onPressed: (){
-                        pub.EpubDocument.openAsset('assets/book/Grace.epub');
+                        Get.to(() => BookView(), transition:  Transition.zoom);
                       }, child: Text('Read Book')),
                       AppSizes.gapW10,
                       OutlinedButton(onPressed: (){}, child: Text('View More'))
