@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:riverspods/providers/change_notifier.dart';
 
 
 
 void main (){
-runApp(Home());
+runApp(ProviderScope(child: Home()));
 
 }
 
@@ -31,8 +33,47 @@ class Home extends StatelessWidget {
           //   color: Colors.amber
           // )
         ),
-        home : Container()
+        home : Counter()
       ),
+    );
+  }
+}
+
+
+class Counter extends StatelessWidget {
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    print('build');
+    return Scaffold(
+        body: SafeArea(
+          child: Consumer(
+            builder: (context, ref, child) {
+              final number = ref.watch(countChange).number;
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('$number', style: TextStyle(fontSize: 50),),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(
+                          onPressed: () {
+
+                            ref.read(countChange).increment();
+
+
+                          }, child: Text('ADD')),
+                      TextButton(onPressed: () {}, child: Text('MINUS')),
+                    ],
+                  )
+                ],
+              );
+            }
+          ),
+        )
     );
   }
 }
