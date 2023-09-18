@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:riverspods/providers/change_notifier.dart';
+import 'package:riverspods/providers/state_notifier.dart';
+import 'package:riverspods/view/todo_page.dart';
 
 
 
@@ -13,10 +15,12 @@ runApp(ProviderScope(child: Home()));
 
 
 
+
 class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
 
     return ScreenUtilInit(
       designSize: const Size(375, 812),
@@ -33,11 +37,51 @@ class Home extends StatelessWidget {
           //   color: Colors.amber
           // )
         ),
-        home : Counter()
+        home : TodoPage()
       ),
     );
   }
 }
+
+
+
+
+class CountState extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+        body: SafeArea(
+          child: Consumer(
+              builder: (context, ref, child) {
+
+                final number = ref.watch(countState);
+
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('$number', style: TextStyle(fontSize: 50),),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextButton(
+                            onPressed: () {
+                             ref.read(countState.notifier).state++;
+                            }, child: Text('ADD')),
+                        TextButton(onPressed: () {}, child: Text('MINUS')),
+                      ],
+                    )
+                  ],
+                );
+              }
+          ),
+        )
+    );
+  }
+}
+
+
 
 
 class Counter extends StatelessWidget {
@@ -51,6 +95,7 @@ class Counter extends StatelessWidget {
         body: SafeArea(
           child: Consumer(
             builder: (context, ref, child) {
+
               final number = ref.watch(countChange).number;
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
