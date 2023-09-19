@@ -4,8 +4,9 @@ import 'package:riverspods/models/todo.dart';
 
 
 
-final todoProvider = StateNotifierProvider((ref) => TodoProvider([
-  Todo(created_at: '2023', todo: 'some books to read')
+final todoProvider = StateNotifierProvider<TodoProvider, List<Todo>>((ref) => TodoProvider([
+  Todo(created_at: '2023', todo: 'some books to read'),
+  Todo(created_at: '2024', todo: 'some books to write'),
 ]));
 
 class TodoProvider extends StateNotifier<List<Todo>>{
@@ -15,6 +16,10 @@ class TodoProvider extends StateNotifier<List<Todo>>{
   void addTodo(Todo todo){
     state = [...state, todo];
   }
+
+
+
+
 
 
 }

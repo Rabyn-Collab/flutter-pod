@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverspods/constants/app_sizes.dart';
+import 'package:riverspods/models/todo.dart';
+import 'package:riverspods/providers/todo_provider.dart';
 
 
-class TodoPage extends StatelessWidget {
+class TodoPage extends ConsumerWidget {
    TodoPage({super.key});
 
   final todoController = TextEditingController();
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final state = ref.watch(todoProvider);
     return Scaffold(
           appBar: AppBar(
             title: Text('Todo Notifier'),
@@ -30,11 +35,50 @@ class TodoPage extends StatelessWidget {
                             content: Text('please provide todo task'))
                     );
                     }else{
+                      ref.read(todoProvider.notifier).addTodo(Todo(
+                          created_at: DateTime.now().toString(),
+                          todo: val.trim()
+                      ));
                       todoController.clear();
                     }
 
                 },
               ),
+
+              AppSizes.gapH16,
+
+              Expanded(
+                  child: ListView.separated(
+                    separatorBuilder: (c, i){
+                      return Divider();
+                    },
+                       itemCount: state.length,
+                      itemBuilder: (context, index){
+                         final todo = state[index];
+                        return ListTile(
+                          contentPadding: EdgeInsets.zero,
+                          leading: Icon(Icons.date_range),
+                          title: Text(todo.todo),
+                          subtitle: Text(todo.created_at),
+                          trailing: Container(
+                              width: 97,
+                              child: Row(
+                                children: [
+                                  IconButton(
+                                      onPressed: (){},
+                                      icon: Icon(Icons.edit, color: Colors.green,)
+                                  ),
+                                  IconButton(
+                                      onPressed: (){},
+                                      icon: Icon(Icons.delete, color: Colors.pink,)
+                                  ),
+                                ],
+                              )
+                          ),
+                        );
+                      }
+                  )
+              )
             ],
           ),
         )
