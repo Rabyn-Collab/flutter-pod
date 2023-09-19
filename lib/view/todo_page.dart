@@ -69,7 +69,25 @@ class TodoPage extends ConsumerWidget {
                                       icon: Icon(Icons.edit, color: Colors.green,)
                                   ),
                                   IconButton(
-                                      onPressed: (){},
+                                      onPressed: (){
+
+                                       showDialog(context: context, builder: (context){
+                                         return AlertDialog(
+                                           title: Text('Hold On'),
+                                           content: Text('Are you sure ?'),
+                                           actions: [
+                                             TextButton(onPressed: (){
+                                               Navigator.of(context).pop();
+                                               ref.read(todoProvider.notifier).removeTdo(todo);
+                                             }, child: Text('sure')),
+                                             TextButton(onPressed: (){
+                                               Navigator.of(context).pop();
+                                             }, child: Text('not sure')),
+                                           ],
+                                         );
+                                       });
+
+                                      },
                                       icon: Icon(Icons.delete, color: Colors.pink,)
                                   ),
                                 ],
