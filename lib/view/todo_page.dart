@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverspods/common_widget/custom_button.dart';
-import 'package:riverspods/constants/app_sizes.dart';
+
 import 'package:riverspods/models/todo.dart';
 import 'package:riverspods/providers/todo_provider.dart';
 
@@ -9,8 +8,23 @@ class TodoPage extends ConsumerWidget {
   TodoPage({super.key});
 
   final todoController = TextEditingController();
+  final todoController1 = TextEditingController();
+
+
+
   @override
   Widget build(BuildContext context, ref) {
+    // List dat = [
+    //   {'i': 1, 'title': 'lio'},
+    //   {'i': 2, 'title': 'mio'}
+    // ];
+    //
+    // dat = [
+    //   for(final l in dat) l['i'] == 1  ?{'l': 'cahnge'}: l
+    // ];
+    //
+    // print(dat);
+
     final state = ref.watch(todoProvider);
     return Scaffold(
         appBar: AppBar(
@@ -81,6 +95,8 @@ class TodoPage extends ConsumerWidget {
                                             todo: todo,
                                             onPressed: (){
                                               Navigator.of(context).pop();
+                                              ref.read(todoProvider.notifier).updateTodo(Todo(
+                                                  created_at: todo.created_at, todo: todoController1.text));
 
                                             }
                                         );
@@ -126,7 +142,7 @@ class TodoPage extends ConsumerWidget {
           return AlertDialog(
             title: Text(isUpdate ? 'Update Post': 'Hold On'),
             content: isUpdate ? TextFormField(
-               initialValue: todo.todo,
+              controller: todoController1..text = todo.todo,
             ) :Text('Are you sure ?'),
             actions: [
               TextButton(
